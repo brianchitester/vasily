@@ -3,14 +3,15 @@ import React, { useRef, useEffect, useState } from 'react'
 import chance from 'chance'
 import styled from 'styled-components'
 
-const Canvas = () => {
+const Canvas = ({gallery, setGallery}) => {
   
   const canvasRef = useRef(null)
   const [count, setCounter] = useState(0)
   const [circleDrawn, setCircleDrawn] = useState(false)
   const [rectDrawn, setRectDrawn] = useState(false)
   const [triangleDrawn, setTriangleDrawn] = useState(false)
-
+  
+  
   useEffect(() => {
     if (!canvasRef.current) {
         return
@@ -38,6 +39,8 @@ const Canvas = () => {
     grd.addColorStop(1, transColor());
     return grd
   }
+
+  
   
   const drawRect = (ctx) => {
     ctx.fillStyle = createGradient(ctx);
@@ -63,6 +66,47 @@ const Canvas = () => {
     setTriangleDrawn(true)
   }
 
+  const drawFrame = (ctx) => {
+    const createFrameGradient = (ctx) => {
+      const grd = ctx.createLinearGradient(250, 0, 500, 500);
+      grd.addColorStop(0, 'gray');
+      grd.addColorStop(1, 'black');
+      return grd
+    }
+    ctx.fillStyle = createFrameGradient(ctx);
+    //left
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(10, 10);
+    ctx.lineTo(10, 500 - 10);
+    ctx.lineTo(0, 500);
+    ctx.fill();
+
+    //bottom
+    ctx.beginPath();
+    ctx.moveTo(0, 500);
+    ctx.lineTo(10, 500 - 10);
+    ctx.lineTo(500-10, 500 - 10);
+    ctx.lineTo(500, 500);
+    ctx.fill();
+
+    //right
+    ctx.beginPath();
+    ctx.moveTo(500, 500);
+    ctx.lineTo(500-10, 500 - 10);
+    ctx.lineTo(500-10, 10);
+    ctx.lineTo(500, 0);
+    ctx.fill();
+
+    //top
+    ctx.beginPath();
+    ctx.moveTo(500, 0);
+    ctx.lineTo(500-10, 10);
+    ctx.lineTo(10, 10);
+    ctx.lineTo(0, 0);
+    ctx.fill();
+  }
+
   const drawCanvas = (ctx) => {
     if (!ctx) {
       return
@@ -85,6 +129,12 @@ const Canvas = () => {
     drawTriangle(ctx)
   }
 
+  const save = (canvas) => {
+    const newImage = canvas.toDataURL('image/png')
+    console.log(newImage)
+    setGallery([...gallery, newImage])
+  }
+
   const canvas = canvasRef.current
   const context = canvas?.getContext('2d')
   return <>
@@ -95,9 +145,10 @@ const Canvas = () => {
       <StyledButton disabled={rectDrawn}onClick={() => drawRect(context)}>Draw Rectangle</StyledButton>
     </ButtonContainer>
     <ButtonContainer>
-
       <StyledButton onClick={() => quickDraw(context)}>Quick Draw</StyledButton>
       <StyledButton onClick={() => drawCanvas(context)}>Reset</StyledButton>
+      <StyledButton onClick={() => drawFrame(context)}>Frame</StyledButton>
+      <StyledButton onClick={() => save(canvas)}>Save</StyledButton>
     </ButtonContainer>
   </>
 }
