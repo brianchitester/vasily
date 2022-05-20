@@ -16,7 +16,7 @@ const Canvas = () => {
   const context = canvas.getContext('2d')
   
   //Our draw come here
-  drawRect(context)
+  drawNothing(context)
 }, [])
 
   const random = new chance()
@@ -49,7 +49,7 @@ const Canvas = () => {
     // draw circle
     ctx.fillStyle = createGradient(ctx);
     ctx.beginPath()
-    ctx.arc(number()/2, number()/2, number()/2, number()/2, 2*Math.PI)
+    ctx.arc(number()/2, number()/2, number()/2, 0, 2*Math.PI)
     ctx.fill()
   }
 
@@ -67,13 +67,25 @@ const Canvas = () => {
     ctx.lineTo(number(), number());
     ctx.fill();
   }
+
+  const drawNothing = (ctx) => {
+    if (!ctx) {
+      return
+  }
+  setCounter(count+1)
+    ctx.fillStyle = 'white';
+    ctx.fillRect(1,1,1,1);
+  }
+
   const canvas = canvasRef.current
   const context = canvas?.getContext('2d')
   return <>
     <StyledCanvas ref={canvasRef} width="500" height="500"/>
-    <button onClick={() => drawTriangle(context)}>Draw Triangle</button>
-    <button onClick={() => drawCircle(context)}>Draw Circle</button>
-    <button onClick={() => drawRect(context)}>Draw Rectangle</button>
+    <div>
+      <button onClick={() => drawTriangle(context)}>Draw Triangle</button>
+      <button onClick={() => drawCircle(context)}>Draw Circle</button>
+      <button onClick={() => drawRect(context)}>Draw Rectangle</button>
+    </div>
   </>
 }
 
