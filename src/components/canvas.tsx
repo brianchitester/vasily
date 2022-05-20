@@ -7,6 +7,10 @@ const Canvas = () => {
   
   const canvasRef = useRef(null)
   const [count, setCounter] = useState(0)
+  const [circleDrawn, setCircleDrawn] = useState(false)
+  const [rectDrawn, setRectDrawn] = useState(false)
+  const [triangleDrawn, setTriangleDrawn] = useState(false)
+
   useEffect(() => {
     if (!canvasRef.current) {
         return
@@ -34,6 +38,7 @@ const Canvas = () => {
   const drawRect = (ctx) => {
     ctx.fillStyle = createGradient(ctx);
     ctx.fillRect(number()/2, number()/2, number(), number());
+    setRectDrawn(true)
   }
 
   const drawCircle = (ctx) => {
@@ -41,6 +46,7 @@ const Canvas = () => {
     ctx.beginPath()
     ctx.arc(number(), number(), number()/2, 0, 2*Math.PI)
     ctx.fill()
+    setCircleDrawn(true)
   }
 
   const drawTriangle = (ctx) => {
@@ -50,6 +56,7 @@ const Canvas = () => {
     ctx.lineTo(number(), number());
     ctx.lineTo(number(), number());
     ctx.fill();
+    setTriangleDrawn(true)
   }
 
   const drawCanvas = (ctx) => {
@@ -59,6 +66,9 @@ const Canvas = () => {
     setCounter(count+1)
     ctx.fillStyle = '#F9F8F4';
     ctx.fillRect(0,0,500,500);
+    setCircleDrawn(false)
+    setTriangleDrawn(false)
+    setRectDrawn(false)
   }
 
   const canvas = canvasRef.current
@@ -66,9 +76,12 @@ const Canvas = () => {
   return <>
     <StyledCanvas ref={canvasRef} width="500" height="500"/>
     <ButtonContainer>
-      <StyledButton onClick={() => drawTriangle(context)}>Draw Triangle</StyledButton>
-      <StyledButton onClick={() => drawCircle(context)}>Draw Circle</StyledButton>
-      <StyledButton onClick={() => drawRect(context)}>Draw Rectangle</StyledButton>
+      <StyledButton disabled={triangleDrawn}onClick={() => drawTriangle(context)}>Draw Triangle</StyledButton>
+      <StyledButton disabled={circleDrawn}onClick={() => drawCircle(context)}>Draw Circle</StyledButton>
+      <StyledButton disabled={rectDrawn}onClick={() => drawRect(context)}>Draw Rectangle</StyledButton>
+    </ButtonContainer>
+    <ButtonContainer>
+      <StyledButton onClick={() => drawCanvas(context)}>Reset</StyledButton>
     </ButtonContainer>
   </>
 }
