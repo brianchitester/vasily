@@ -8,16 +8,15 @@ const Canvas = () => {
   const canvasRef = useRef(null)
   const [count, setCounter] = useState(0)
   useEffect(() => {
-    if (!canvasRef.current){
+    if (!canvasRef.current) {
         return
     }
   
-  const canvas = canvasRef.current
-  const context = canvas.getContext('2d')
-  
-  //Our draw come here
-  drawNothing(context)
-}, [])
+    const canvas = canvasRef.current
+    const context = canvas.getContext('2d')
+    
+    drawCanvas(context)
+  }, [])
 
   const random = new chance()
 
@@ -33,33 +32,18 @@ const Canvas = () => {
   }
   
   const drawRect = (ctx) => {
-      if (!ctx) {
-          return
-      }
-      setCounter(count+1)
-    // Fill with gradient
     ctx.fillStyle = createGradient(ctx);
-    ctx.fillRect(number()/2, number()/2, number()/2, number()/2);
+    ctx.fillRect(number()/2, number()/2, number(), number());
   }
 
   const drawCircle = (ctx) => {
-    if (!ctx) {
-        return
-    }
-    // draw circle
     ctx.fillStyle = createGradient(ctx);
     ctx.beginPath()
-    ctx.arc(number()/2, number()/2, number()/2, 0, 2*Math.PI)
+    ctx.arc(number(), number(), number()/2, 0, 2*Math.PI)
     ctx.fill()
   }
 
   const drawTriangle = (ctx) => {
-    if (!ctx) {
-        console.log('tris')
-        console.log(ctx)
-        return
-    }
-    // draw triangle
     ctx.fillStyle = createGradient(ctx);
     ctx.beginPath();
     ctx.moveTo(number(), number());
@@ -68,30 +52,47 @@ const Canvas = () => {
     ctx.fill();
   }
 
-  const drawNothing = (ctx) => {
+  const drawCanvas = (ctx) => {
     if (!ctx) {
       return
-  }
-  setCounter(count+1)
-    ctx.fillStyle = 'white';
-    ctx.fillRect(1,1,1,1);
+    }
+    setCounter(count+1)
+    ctx.fillStyle = '#F9F8F4';
+    ctx.fillRect(0,0,500,500);
   }
 
   const canvas = canvasRef.current
   const context = canvas?.getContext('2d')
   return <>
     <StyledCanvas ref={canvasRef} width="500" height="500"/>
-    <div>
-      <button onClick={() => drawTriangle(context)}>Draw Triangle</button>
-      <button onClick={() => drawCircle(context)}>Draw Circle</button>
-      <button onClick={() => drawRect(context)}>Draw Rectangle</button>
-    </div>
+    <ButtonContainer>
+      <StyledButton onClick={() => drawTriangle(context)}>Draw Triangle</StyledButton>
+      <StyledButton onClick={() => drawCircle(context)}>Draw Circle</StyledButton>
+      <StyledButton onClick={() => drawRect(context)}>Draw Rectangle</StyledButton>
+    </ButtonContainer>
   </>
 }
 
 const StyledCanvas = styled.canvas`
   border: 1px solid black;
   margin-top: 50px;
+`
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+  flex-wrap: wrap;
+  margin-top: 2em;
+`
+
+const StyledButton = styled.button`
+  display:block;
+  margin: 10px;
+  padding: 10px;
+  align: center;
+  font-size: 2em;
 `
 
 export default Canvas
