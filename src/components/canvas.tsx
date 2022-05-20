@@ -29,11 +29,11 @@ const Canvas = () => {
   }
 
   const transColor = () => {
-    return random.color({format: 'rgb'}).replace(')',',0.90)')
+    return random.color({format: 'rgb'}).replace(')',',0.80)')
   }
 
   const createGradient = (ctx) => {
-    const grd = ctx.createLinearGradient(number(), number(), number(), number());
+    const grd = ctx.createLinearGradient(0, 0, 500, 500);
     grd.addColorStop(0, transColor());
     grd.addColorStop(1, transColor());
     return grd
@@ -75,6 +75,16 @@ const Canvas = () => {
     setRectDrawn(false)
   }
 
+  const quickDraw = (ctx) => {
+    if (!ctx) {
+      return
+    }
+    drawCanvas(ctx)
+    drawCircle(ctx)
+    drawRect(ctx)
+    drawTriangle(ctx)
+  }
+
   const canvas = canvasRef.current
   const context = canvas?.getContext('2d')
   return <>
@@ -85,6 +95,8 @@ const Canvas = () => {
       <StyledButton disabled={rectDrawn}onClick={() => drawRect(context)}>Draw Rectangle</StyledButton>
     </ButtonContainer>
     <ButtonContainer>
+
+      <StyledButton onClick={() => quickDraw(context)}>Quick Draw</StyledButton>
       <StyledButton onClick={() => drawCanvas(context)}>Reset</StyledButton>
     </ButtonContainer>
   </>
