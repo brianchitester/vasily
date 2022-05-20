@@ -28,10 +28,14 @@ const Canvas = () => {
     return  random.integer({min: 0, max: 500})
   }
 
+  const transColor = () => {
+    return random.color({format: 'rgb'}).replace(')',',0.90)')
+  }
+
   const createGradient = (ctx) => {
     const grd = ctx.createLinearGradient(number(), number(), number(), number());
-    grd.addColorStop(0, random.color({format: 'rgb'}));
-    grd.addColorStop(1, random.color({format: 'rgb'}));
+    grd.addColorStop(0, transColor());
+    grd.addColorStop(1, transColor());
     return grd
   }
   
