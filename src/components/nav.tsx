@@ -6,20 +6,23 @@ import styled from 'styled-components'
 function Nav() {
   return (
       <StyledNav>
-        <div>The Corporation Plaza Gallery</div>
-        <Subtitle>Art for business</Subtitle>
-        <Link to="/">Canvas</Link>
-        <Link to="/gallery">Gallery</Link>
-        <Link to="/manifesto">Manifesto</Link>
+        <div>The Corporation Plaza Gallery
+        <Subtitle>Art for business - <a href=''>connect</a></Subtitle>
+        </div>
+        
+        <Flexatron>
+            <Link to="/">Canvas</Link>
+            <Link to="/gallery">Gallery</Link>
+            <Link to="/manifesto">Manifesto</Link>
+        </Flexatron>
       </StyledNav>
   );
 }
 
 const StyledNav = styled.div`
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     gap: 30px;
-    width: 100%;
     margin: 1em;
     flex-wrap: wrap;
     font-family: 'Josefin Sans', cursive;
@@ -27,9 +30,15 @@ const StyledNav = styled.div`
 `
 
 const Subtitle = styled.div`
-    font-size: 0.5em;
+    font-size: 0.75em;
     align-self: center;
-    margin-right:50px;
+`
+
+const Flexatron = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-self: stretch;
+    gap: 30px;
 `
 
 export default Nav;

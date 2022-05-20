@@ -140,15 +140,9 @@ const Canvas = ({gallery, setGallery}) => {
   return <>
     <StyledCanvas ref={canvasRef} width="500" height="500"/>
     <ButtonContainer>
-      <StyledButton disabled={triangleDrawn}onClick={() => drawTriangle(context)}>Draw Triangle</StyledButton>
-      <StyledButton disabled={circleDrawn}onClick={() => drawCircle(context)}>Draw Circle</StyledButton>
-      <StyledButton disabled={rectDrawn}onClick={() => drawRect(context)}>Draw Rectangle</StyledButton>
-    </ButtonContainer>
-    <ButtonContainer>
-      <StyledButton onClick={() => quickDraw(context)}>Quick Draw</StyledButton>
-      <StyledButton onClick={() => drawCanvas(context)}>Reset</StyledButton>
+      <StyledButton onClick={() => quickDraw(context)}>Paint</StyledButton>
       <StyledButton onClick={() => drawFrame(context)}>Frame</StyledButton>
-      <StyledButton onClick={() => save(canvas)}>Save</StyledButton>
+      <StyledButton onClick={() => save(canvas)}>Mint</StyledButton>
     </ButtonContainer>
   </>
 }

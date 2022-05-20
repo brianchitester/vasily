@@ -22,6 +22,8 @@ const GalleryContainer = styled.div`
 
 const GalleryImage = styled.img`
   margin:30px;
+  width:400px;
+  height:400px;
 `
 
 export default Gallery;
