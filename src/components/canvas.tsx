@@ -2,6 +2,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import chance from 'chance'
 import styled from 'styled-components'
+import { storeExampleNFT } from '../util/mint'
 
 const Canvas = ({gallery, setGallery}) => {
   
@@ -133,6 +134,11 @@ const Canvas = ({gallery, setGallery}) => {
     const newImage = canvas.toDataURL('image/png')
     console.log(newImage)
     setGallery([...gallery, newImage])
+    // store nft async
+    canvas.toBlob(function(imageBlob) {
+      storeExampleNFT(imageBlob)
+    }, 'image/jpeg');
+    
   }
 
   const canvas = canvasRef.current
