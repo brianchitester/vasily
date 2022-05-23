@@ -21,7 +21,7 @@ function App() {
           <Route path="/gallery" element={<Gallery gallery={gallery} />} />
           <Route path="/manifesto" element={<Manifesto />} />
         </Routes>
-        <StyledAudioControls src="art.mp3" autoPlay controls />
+        <StyledAudioControls src="art.mp3" autoPlay />
       </BrowserRouter>
     </div>
   );
