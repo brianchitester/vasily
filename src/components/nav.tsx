@@ -7,9 +7,9 @@ import { useWallet } from '../context/walletProvider';
 function ConnectActions() {
     const { connect, connected, disconnect } = useWallet();
     return connected ? (
-            <a onClick={() => disconnect()}>disconnect</a>
+            <span onClick={() => disconnect()}>disconnect</span>
         ) : (
-            <a onClick={() => connect()}>connect</a>
+            <span onClick={() => connect()}>connect</span>
     );
   }
 
