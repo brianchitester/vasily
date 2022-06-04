@@ -7,6 +7,7 @@ import Manifesto from './components/manifesto';
 import Nav from './components/nav';
 import { mockGalleryItems } from './mock/mockGalleryItems';
 import styled from 'styled-components'
+import { WalletProvider } from './context/walletProvider';
 
 
 function App() {
@@ -14,15 +15,17 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-      <Nav/>
-        <Routes>
-          <Route path="/" element={<Canvas gallery={gallery} setGallery={setGallery} />} />
-          <Route path="/gallery" element={<Gallery gallery={gallery} />} />
-          <Route path="/manifesto" element={<Manifesto />} />
-        </Routes>
-        <StyledAudioControls src="art.mp3" autoPlay />
-      </BrowserRouter>
+      <WalletProvider>
+        <BrowserRouter>
+        <Nav/>
+          <Routes>
+            <Route path="/" element={<Canvas gallery={gallery} setGallery={setGallery} />} />
+            <Route path="/gallery" element={<Gallery gallery={gallery} />} />
+            <Route path="/manifesto" element={<Manifesto />} />
+          </Routes>
+          <StyledAudioControls src="art.mp3" autoPlay />
+        </BrowserRouter>
+      </WalletProvider>
     </div>
   );
 }
