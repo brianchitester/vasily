@@ -1,14 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
+import { useWallet } from '../context/walletProvider';
 
+
+function ConnectActions() {
+    const { connect, connected, disconnect } = useWallet();
+    return connected ? (
+            <a onClick={() => disconnect()}>disconnect</a>
+        ) : (
+            <a onClick={() => connect()}>connect</a>
+    );
+  }
 
 function Nav() {
+  const { accounts } = useWallet();
   return (
       <StyledNav>
         <div>The Corporation Plaza Gallery
-        <Subtitle>Art for business - <a href=''>connect</a></Subtitle>
+        <Subtitle>Art for business - <ConnectActions/></Subtitle>
         </div>
+
+        {accounts && 
+            <div>{accounts[0]}</div>
+        }
         
         <Flexatron>
             <Link to="/">Canvas</Link>
