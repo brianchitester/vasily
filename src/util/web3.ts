@@ -13,6 +13,7 @@ export const ETH_JSONRPC_URL = `https://mainnet.infura.io/v3/${process.env.REACT
 export const CHAIN_ID = 1;
 
 // Initialize walletSdk
+
 export const walletSdk = new CoinbaseWalletSdk({
   darkMode: true,
   appName: APP_NAME,
